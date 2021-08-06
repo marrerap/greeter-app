@@ -15,8 +15,6 @@ class Timestamp extends React.Component {
         this.state = {
             // set the number
             date: new Date(),
-            
-
         }
     }
 
@@ -34,8 +32,8 @@ class Timestamp extends React.Component {
     render() {
         return (
             <div> 
-                <span>{this.state.date.getMonth()}                              
-                {this.state.date.getDay()},{this.state.date.getTime()}</span>               
+                <span>Month:{this.state.date.getMonth()},<br/>Day:                              
+                {this.state.date.getDay()}th</span>               
             </div>
         )
     }
