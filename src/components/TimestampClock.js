@@ -3,12 +3,14 @@ import React from 'react';
 
 
 
-class Timestamp extends React.Component {
+class TimestampClock extends React.Component {
     constructor() {
         super()
         this.state = {
-            date: new Date()
+            date: new Date(),
+            paused: false
         }
+        
     }
     getMonthName(dayOfMonth) {
         const months = [
@@ -28,9 +30,18 @@ class Timestamp extends React.Component {
         return months[dayOfMonth]
     }
     updateTime = () => {
+        if (this.state.paused === false)
         this.setState({
             date: new Date()
         })   
+    }
+    componentDidMount() {
+        setInterval(this.updateTime, 1000)
+    }
+    toggleClock = () => {
+        this.setState({
+            paused: !this.state.paused
+        })
     }
     getSuffix(day) {
         let suffix = 'th';
@@ -50,31 +61,18 @@ class Timestamp extends React.Component {
         const month = this.getMonthName(date.getMonth())
         const day = date.getDate()
         const suffix = this.getSuffix(day)
-        // const month = (dat.getMonth())
-        // const months = [
-        //     'January',
-        //     'February',
-        //     'March',
-        //     'April',
-        //     'May',
-        //     "June",
-        //     'July',
-        //     'August',
-        //     'September',
-        //     'October',
-        //     'November',
-        //     'December'
-        // ]
+  
         
         
 
         return (
             <div>
             <div>{month} {day}{suffix},{time} </div>
-            <button type="submit" onClick={this.updateTime} >♻️⏲️</button>
+            <button type="click" onClick={this.toggleClock}>{this.state.paused ? "▶️" : "⏸️"}</button>
+            
             </div>
         )
     }
 }
 
-export default Timestamp
+export default TimestampClock
